@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CustomPaging.Models.Studentinform>
+
+@{
+    ViewBag.Title = "Custom Paging";
+    // Here for used webgrid we have to add Helper dll as we used Basic MVC templete its by default not exist
+    var grid = new WebGrid(rowsPerPage: ViewBag.PageSize, canPage: true);
+    grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
+}
+<style type="text/css">
+    table.gridtable {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table.gridtable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+</style>
+
+<h2>Index</h2>
+@Html.Hidden("page");
+<div>
+    @grid.GetHtml(tableStyle: "gridtable",
+                    columns: grid.Columns(
+                                grid.Column("id", "Roll Number"),
+                                grid.Column("name", "Customer Name"),
+                                grid.Column("Address", "Address"),
+                                grid.Column("marks", "marks")
+                               
+                            )
+                        )
+   
+</div>
+@using (Html.BeginForm())
+{
+    <input type="submit" value="submit" title="Click" />
+}
